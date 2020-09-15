@@ -1,0 +1,15 @@
+.todo-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.todo-item {
+  margin: 20px;
+  width: 80%;
+  border-style: solid;
+  border-width: 1px;
+  border-color: grey;
+  padding: 20px;
+  border-radius: 6px;
+}

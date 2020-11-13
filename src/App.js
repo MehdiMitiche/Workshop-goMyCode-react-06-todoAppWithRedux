@@ -10,13 +10,18 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get("http://localhost:8080/todos");
-      if (!response || response.status !== 200)
-        dispatch({ type: "SET_STATE", payload: { todolist: [] } });
-      dispatch({
-        type: "SET_STATE",
-        payload: { todolist: response.data.data },
-      });
+      try {
+        const response = await axios.get("http://localhost:8080/todos");
+        if (!response || response.status !== 200)
+          return dispatch({ type: "SET_STATE", payload: { todolist: [] } });
+        dispatch({
+          type: "SET_STATE",
+          payload: { todolist: response.data.data },
+        });
+      } catch (err) {
+        console.log(err.message);
+        return dispatch({ type: "SET_STATE", payload: { todolist: [] } });
+      }
     };
     fetchData();
   }, [dispatch]);

@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 const AddTodo = () => {
   const todoInput = useSelector((state) => state.todo.todoInput);
+  const todos = useSelector((state) => state.todo.todolist);
   const dispatch = useDispatch();
   return (
     <div className="todo-input">
@@ -15,16 +16,21 @@ const AddTodo = () => {
         placeholder="Add new Todo"
         style={{ height: 70 }}
         onChange={(event) => {
-          dispatch({ type: "UPDATE_INPUT", payload: event.target.value });
+          dispatch({
+            type: "SET_STATE",
+            payload: { todoInput: event.target.value },
+          });
         }}
       />
       <Button
         type="primary"
         style={{ height: 70 }}
         onClick={() => {
-          if (todoInput) dispatch({ type: "ADD_TODO", payload: todoInput });
-
-          dispatch({ type: "UPDATE_INPUT", payload: "" });
+          if (todoInput)
+            dispatch({
+              type: "SET_STATE",
+              payload: { todolist: [...todos, todoInput], todoInput: "" },
+            });
         }}
       >
         New Todo
